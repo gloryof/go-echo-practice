@@ -1,0 +1,26 @@
+{{define "index"}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h2>{{.Title}}</h2>
+    <ul>
+        {{range $i, $d := .Data}}
+        <li>
+            <dl>
+                <dt>ID</dt>
+                <dd>{{$d.ID}}</dd>
+                <dt>Value</dt>
+                <dd>{{$d.Value}}</dd>
+            </dl>
+        </li>
+        {{end}}
+    </ul>
+</body>
+</html>
+{{end}}
