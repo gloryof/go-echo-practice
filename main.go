@@ -5,6 +5,8 @@ import (
 
 	"github.com/gloryof/go-echo-practice/auth"
 	"github.com/gloryof/go-echo-practice/config"
+	"github.com/gloryof/go-echo-practice/output"
+	"github.com/gloryof/go-echo-practice/render"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
 )
@@ -21,40 +23,8 @@ func main() {
 	})
 	ag := e.Group("/auth")
 	ag.Use(middleware.KeyAuthWithConfig(auth.GetConfig()))
-	ag.GET("/info", func(c echo.Context) error {
-
-		view := ViewInfo{
-			Title: "テスト",
-			Data: []ViewData{
-				{
-					ID:    1,
-					Value: "test1",
-				},
-				{
-					ID:    2,
-					Value: "test2",
-				},
-				{
-					ID:    3,
-					Value: "test3",
-				},
-			},
-		}
-
-		return c.Render(http.StatusOK, "index", view)
-	})
+	ag.GET("/info", render.View)
+	ag.GET("/output", output.Sheet)
 
 	e.Start(":8000")
-}
-
-// ViewInfo 表示情報
-type ViewInfo struct {
-	Title string
-	Data  []ViewData
-}
-
-// ViewData 表示データ
-type ViewData struct {
-	ID    uint64
-	Value string
 }

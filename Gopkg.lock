@@ -40,6 +40,12 @@
   version = "v0.0.3"
 
 [[projects]]
+  name = "github.com/tealeg/xlsx"
+  packages = ["."]
+  revision = "8be35264fa75a1bbe954ce51eba04f273e2c59e5"
+  version = "v1.0.3"
+
+[[projects]]
   branch = "master"
   name = "github.com/valyala/bytebufferpool"
   packages = ["."]
@@ -69,6 +75,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "76cf383a16f0d112ec8d383da8f2c2cd674654309a87afc9145bd0500fd31adf"
+  inputs-digest = "d2a3f42a2f29248d3b03fac0ea285e1e7e2a413d104ad531dc01e54d1ef79bb9"
   solver-name = "gps-cdcl"
   solver-version = 1
