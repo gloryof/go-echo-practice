@@ -2,6 +2,12 @@
 
 
 [[projects]]
+  name = "github.com/360EntSecGroup-Skylar/excelize"
+  packages = ["."]
+  revision = "eb62256d165607c6877ce88efbba10c119137b3d"
+  version = "1.3"
+
+[[projects]]
   name = "github.com/dgrijalva/jwt-go"
   packages = ["."]
   revision = "06ea1031745cb8b3dab3f6a236daf2b0aa468b7e"
@@ -40,12 +46,6 @@
   version = "v0.0.3"
 
 [[projects]]
-  name = "github.com/tealeg/xlsx"
-  packages = ["."]
-  revision = "8be35264fa75a1bbe954ce51eba04f273e2c59e5"
-  version = "v1.0.3"
-
-[[projects]]
   branch = "master"
   name = "github.com/valyala/bytebufferpool"
   packages = ["."]
@@ -75,6 +75,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "d2a3f42a2f29248d3b03fac0ea285e1e7e2a413d104ad531dc01e54d1ef79bb9"
+  inputs-digest = "0a931f93ccb848d8ff65b5f0d4fa2301703aa65ac129251eaa9077480e7181f5"
   solver-name = "gps-cdcl"
   solver-version = 1
