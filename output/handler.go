@@ -11,7 +11,40 @@ func Sheet(c echo.Context) error {
 	file := excelize.NewFile()
 
 	targetSheet := "Sheet1"
+	addData(file, targetSheet)
+
+	file.AddChart(targetSheet, "B15", createChartOption())
+
 	file.SetActiveSheet(file.NewSheet(targetSheet))
+	return file.Write(c.Response().Writer)
+}
+
+func createChartOption() string {
+
+	return `
+		{
+			"type": "line",
+			"dimension": {
+				"width": 640,
+				"height": 640
+			},
+			"series": [{
+				"name": "Sheet1!$C2",
+				"categories": "Sheet1!$B$3:$B$13",
+				"values": "Sheet1!$C$3:$C$13"
+			}],
+			"title": {
+				"name": "体重グラフ"
+			},
+			"y_axis": {
+				"maximum": 68.0,
+				"minimum": 58.0
+			}
+		}
+	`
+}
+
+func addData(file *excelize.File, targetSheet string) {
 
 	setTitle(file, targetSheet)
 	addRow(file, targetSheet, "3", "2018/04/25", 63.3)
@@ -26,7 +59,6 @@ func Sheet(c echo.Context) error {
 	addRow(file, targetSheet, "12", "2018/05/27", 64.0)
 	addRow(file, targetSheet, "13", "2018/05/30", 61.8)
 
-	return file.Write(c.Response().Writer)
 }
 
 func setTitle(s *excelize.File, targetSheet string) {
