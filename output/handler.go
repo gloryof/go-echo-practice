@@ -1,7 +1,11 @@
 package output
 
 import (
+	"net/http"
+	"strings"
+
 	"github.com/360EntSecGroup-Skylar/excelize"
+	"github.com/SebastiaanKlippert/go-wkhtmltopdf"
 	"github.com/labstack/echo"
 )
 
@@ -17,6 +21,35 @@ func Sheet(c echo.Context) error {
 
 	file.SetActiveSheet(file.NewSheet(targetSheet))
 	return file.Write(c.Response().Writer)
+}
+
+// Pdf PDFを出力する
+func Pdf(c echo.Context) error {
+
+	pdfg, err := wkhtmltopdf.NewPDFGenerator()
+	if err != nil {
+
+		return err
+	}
+
+	html := `<html>
+			  <head>
+			  	<meta charset="UTF-8">
+			  	<title>テスト</title>
+			  </head>
+			  <body>
+			  	テストだよー
+			  </body>
+			 </html>`
+
+	pdfg.AddPage(wkhtmltopdf.NewPageReader(strings.NewReader(html)))
+	err2 := pdfg.Create()
+	if err2 != nil {
+
+		return err2
+	}
+
+	return c.Stream(http.StatusOK, "application/pdf", pdfg.Buffer())
 }
 
 func createChartOption() string {

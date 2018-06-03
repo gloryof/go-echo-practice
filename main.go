@@ -24,7 +24,8 @@ func main() {
 	ag := e.Group("/auth")
 	ag.Use(middleware.KeyAuthWithConfig(auth.GetConfig()))
 	ag.GET("/info", render.View)
-	ag.GET("/output", output.Sheet)
+	ag.GET("/output/excel", output.Sheet)
+	ag.GET("/output/pdf", output.Pdf)
 
 	e.Start(":8000")
 }
