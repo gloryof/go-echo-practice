@@ -18,6 +18,8 @@ func main() {
 	t.SetBasePath("views/*.html")
 	e.Renderer = &t
 
+	e.Static("/lib", "static")
+
 	e.GET("/noauth", func(c echo.Context) error {
 		return c.String(http.StatusOK, "Not Authorized!")
 	})

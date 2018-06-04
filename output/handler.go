@@ -35,14 +35,50 @@ func Pdf(c echo.Context) error {
 	html := `<html>
 			  <head>
 			  	<meta charset="UTF-8">
-			  	<title>テスト</title>
+				<title>テスト</title>
 			  </head>
 			  <body>
-			  	テストだよー
+			    <section>
+				  <p>テストだよー</p>
+				</section>
+				<section>
+				  <img src="http://localhost:8000/lib/image.png">
+				</section>
+				<section>
+				  <p>delay1</p>
+				  <img id="delay1" src="">
+				</section>
+				<section>
+				  <p>delay2</p>
+				  <img id="delay2" src="">
+				</section>
+				<section>
+				  <p>delay3</p>
+				  <img id="delay3" src="">
+				</section>
+				<script>
+				  var loadImage = function(id) {
+					document.getElementById(id).src="http://localhost:8000/lib/image.png";
+				  };
+
+				  const d1 = new Date();
+				  while (true) {
+					const d2 = new Date();
+					if (d2 - d1 > 2000) {
+					  break;
+					}
+				  }
+
+				  loadImage("delay1");
+				  setTimeout(function() { loadImage("delay2"); }, 100);
+				  setTimeout(function() { loadImage("delay3"); }, 230);
+				</script>
 			  </body>
 			 </html>`
 
-	pdfg.AddPage(wkhtmltopdf.NewPageReader(strings.NewReader(html)))
+	page := wkhtmltopdf.NewPageReader(strings.NewReader(html))
+	page.JavascriptDelay.Set(3000)
+	pdfg.AddPage(page)
 	err2 := pdfg.Create()
 	if err2 != nil {
 
