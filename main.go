@@ -2,6 +2,7 @@ package main
 
 import (
 	"net/http"
+	"strings"
 
 	"github.com/gloryof/go-echo-practice/auth"
 	"github.com/gloryof/go-echo-practice/config"
@@ -29,5 +30,29 @@ func main() {
 	ag.GET("/output/excel", output.Sheet)
 	ag.GET("/output/pdf", output.Pdf)
 
+	go func() {
+
+		r := echo.New()
+
+		r.Pre(redirectMainPort())
+
+		r.Start(":8001")
+	}()
+
 	e.Start(":8000")
+}
+
+func redirectMainPort() echo.MiddlewareFunc {
+	return func(next echo.HandlerFunc) echo.HandlerFunc {
+		return func(c echo.Context) error {
+
+			r := c.Request()
+			bh := strings.Split(r.Host, ":")[0]
+
+			np := c.Scheme() + "://" + bh + ":8000" + r.RequestURI
+
+			return c.Redirect(http.StatusMovedPermanently, np)
+
+		}
+	}
 }
