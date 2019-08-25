@@ -6,7 +6,7 @@ import (
 
 	"github.com/360EntSecGroup-Skylar/excelize"
 	"github.com/SebastiaanKlippert/go-wkhtmltopdf"
-	"github.com/labstack/echo"
+	"github.com/labstack/echo/v4"
 )
 
 // Sheet シートの出力

@@ -3,7 +3,7 @@ package render
 import (
 	"net/http"
 
-	"github.com/labstack/echo"
+	"github.com/labstack/echo/v4"
 )
 
 // View 表示処理
